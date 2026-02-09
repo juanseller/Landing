@@ -1,172 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cerrar mejor ventas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      background: #050507;
-      color: white;
-      font-family: 'Inter', system-ui, sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* Fondo grid sutil */
-    .bg-grid {
-      background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-
-    /* Animaciones */
-    .reveal {
-      opacity: 0;
-      transform: translateY(60px);
-      transition: all .9s ease;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Glow CTA */
-    .cta {
-      transition: all .3s ease;
-      box-shadow: 0 0 0 rgba(255,255,255,0);
-    }
-    .cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 50px rgba(255,255,255,.18);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<!-- HERO -->
-<section class="min-h-screen flex items-center bg-grid">
-  <div class="max-w-6xl mx-auto px-6 py-32">
-    <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-10 reveal">
-      No necesitás más leads.<br>
-      <span class="text-zinc-400">Necesitás cerrar mejor.</span>
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <span class="microcopy">
+      Para closers y negocios de servicios
+    </span>
+
+    <h1>
+      No necesitás más leads.<br />
+      Necesitás cerrar mejor.
     </h1>
 
-    <p class="text-xl text-zinc-400 max-w-2xl mb-16 reveal">
-      Si ya tenés conversaciones pero no decisiones,
-      el problema no es el mercado.
-      <span class="text-white font-medium">Es el proceso.</span>
+    <p class="subheadline">
+      Si el precio, el “lo pienso” y los seguimientos eternos te frenan,
+      el problema no es el mercado. Es el proceso.
     </p>
 
-    <a href="#problemas" class="text-white/70 hover:text-white transition reveal">
-      Ver si esto aplica a tu caso →
-    </a>
-  </div>
-</section>
-
-<!-- PROBLEMAS -->
-<section id="problemas" class="py-32">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-semibold mb-16 reveal">
-      Esto suele pasar cuando el cierre no está controlado
-    </h2>
-
-    <div class="grid md:grid-cols-4 gap-8">
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Leads que se enfrían</h3>
-        <p class="text-zinc-400 text-sm">
-          Interés inicial sin avance real.
-        </p>
-      </div>
-
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Objeciones recicladas</h3>
-        <p class="text-zinc-400 text-sm">
-          Precio, tiempo, “lo pienso”.
-        </p>
-      </div>
-
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Seguimientos eternos</h3>
-        <p class="text-zinc-400 text-sm">
-          Conversaciones que no cierran.
-        </p>
-      </div>
-
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Cierres diluidos</h3>
-        <p class="text-zinc-400 text-sm">
-          La decisión nunca llega.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MENSAJE CENTRAL -->
-<section class="py-32 bg-zinc-900/30">
-  <div class="max-w-4xl mx-auto px-6 text-center reveal">
-    <p class="text-3xl leading-relaxed text-zinc-300">
-      El problema no es el lead.<br>
-      Tampoco el precio.<br><br>
-      <span class="text-white font-semibold">
-        Es cómo se está llevando la conversación.
-      </span>
-    </p>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="py-32">
-  <div class="max-w-4xl mx-auto px-6 reveal">
     <a
-      href="https://wa.me/543435136669?text=Hola,%20quiero%20mejorar%20mi%20proceso%20de%20cierre."
+      class="cta"
+      href="https://wa.me/543435136669"
       target="_blank"
-      class="block bg-white text-black rounded-3xl p-10 cta"
     >
-      <p class="text-3xl font-semibold mb-3">
-        Agendar una conversación →
-      </p>
-      <p class="text-zinc-600">
-        No es una llamada de ventas.<br>
-        Es para ver si tiene sentido trabajar juntos.
-      </p>
+      Hablar por WhatsApp ahora
     </a>
+
+    <p class="cta-note">
+      Sin llamadas · Sin presión · Solo claridad
+    </p>
   </div>
 </section>
-
-<!-- FOOTER -->
-<footer class="py-32 border-t border-white/10 text-center reveal">
-  <img src="Logo blanco LS.png" alt="Loyal Sphere" class="mx-auto mb-8 max-w-[200px] opacity-90">
-  <p class="text-zinc-500 text-sm">
-    Loyal Sphere · Consultora de Ventas
-  </p>
-</footer>
-
-<!-- SCRIPT ANIMACIONES -->
-<script>
-  const items = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  items.forEach(el => observer.observe(el));
-</script>
 
 </body>
 </html>
