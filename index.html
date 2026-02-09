@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cerrar mejor ventas</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Fuente -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -22,49 +20,93 @@
 
 <body class="bg-zinc-950 text-white">
 
-  <main class="min-h-screen flex items-center">
-    <div class="max-w-4xl mx-auto px-6">
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center border-b border-zinc-800">
+    <div class="max-w-6xl mx-auto px-6 py-24">
 
-      <!-- HERO -->
-      <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-10">
+      <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-10">
         No necesitás más leads.<br>
-        Necesitás cerrar mejor.
+        <span class="text-zinc-400">Necesitás cerrar mejor.</span>
       </h1>
 
-      <p class="text-zinc-400 text-lg max-w-2xl mb-14">
+      <p class="text-xl text-zinc-400 max-w-2xl mb-12">
         Trabajo con closers, dueños de negocio y servicios
         que ya tienen conversaciones, pero no decisiones.
       </p>
 
-      <!-- PROBLEMAS -->
-      <div class="grid md:grid-cols-2 gap-4 text-zinc-300 mb-16">
-        <p>— Leads que no avanzan</p>
-        <p>— Objeciones de precio repetidas</p>
-        <p>— Seguimientos eternos</p>
-        <p>— Cierres que se diluyen</p>
+      <div class="h-px w-24 bg-zinc-700"></div>
+    </div>
+  </section>
+
+  <!-- PROBLEMAS -->
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="grid md:grid-cols-2 gap-8 text-zinc-300 text-lg">
+        <div class="p-6 border border-zinc-800 rounded-xl">
+          Leads que responden pero no avanzan
+        </div>
+        <div class="p-6 border border-zinc-800 rounded-xl">
+          Objeciones de precio repetidas
+        </div>
+        <div class="p-6 border border-zinc-800 rounded-xl">
+          Seguimientos eternos
+        </div>
+        <div class="p-6 border border-zinc-800 rounded-xl">
+          Cierres que se diluyen
+        </div>
       </div>
 
-      <!-- REFRAME -->
-      <p class="text-zinc-400 max-w-xl mb-12">
+    </div>
+  </section>
+
+  <!-- CRITERIO -->
+  <section class="py-24 bg-zinc-900/30">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+
+      <p class="text-2xl text-zinc-300 leading-relaxed">
         El problema no es el lead.<br>
-        Tampoco el precio.<br>
-        Es cómo se está llevando la conversación.
+        Tampoco el precio.<br><br>
+        <span class="text-white font-semibold">
+          Es cómo se está llevando la conversación.
+        </span>
       </p>
 
-      <!-- CTA WHATSAPP -->
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJO -->
+  <section class="py-24">
+    <div class="max-w-4xl mx-auto px-6">
+
+      <p class="text-zinc-400 text-lg leading-relaxed">
+        No trabajo con scripts genéricos ni promesas vacías.<br><br>
+        Trabajo sobre el proceso, la estructura de la conversación
+        y los puntos donde hoy se están perdiendo decisiones.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 border-t border-zinc-800">
+    <div class="max-w-4xl mx-auto px-6">
+
       <a
         href="https://wa.me/543435136669?text=Hola,%20quiero%20mejorar%20mi%20proceso%20de%20cierre."
         target="_blank"
-        class="inline-flex flex-col items-start gap-1 bg-white text-black px-8 py-4 rounded-xl font-medium hover:bg-zinc-200 transition"
+        class="block bg-white text-black rounded-2xl p-8 hover:bg-zinc-200 transition"
       >
-        <span>Agendar una conversación →</span>
-        <span class="text-sm opacity-70">
+        <p class="text-2xl font-semibold mb-2">
+          Agendar una conversación →
+        </p>
+        <p class="text-zinc-600">
           No es una llamada de ventas. Es para ver si tiene sentido trabajar juntos.
-        </span>
+        </p>
       </a>
 
     </div>
-  </main>
+  </section>
 
 </body>
 </html>
