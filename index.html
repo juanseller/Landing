@@ -15,56 +15,82 @@
     body {
       font-family: 'Inter', system-ui, sans-serif;
     }
+
+    /* ANIMACIONES */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: .1s; }
+    .delay-2 { transition-delay: .2s; }
+    .delay-3 { transition-delay: .3s; }
+    .delay-4 { transition-delay: .4s; }
+
+    /* CTA POWER */
+    .cta-glow {
+      box-shadow: 0 0 0 rgba(255,255,255,0);
+      transition: all .3s ease;
+    }
+
+    .cta-glow:hover {
+      box-shadow: 0 0 40px rgba(255,255,255,.15);
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 
-<body class="bg-zinc-950 text-white">
+<body class="bg-zinc-950 text-white overflow-x-hidden">
 
   <!-- HERO -->
   <section class="min-h-screen flex items-center border-b border-zinc-800">
     <div class="max-w-6xl mx-auto px-6 py-24">
 
-      <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-10">
+      <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-10 reveal delay-1">
         No necesitás más leads.<br>
         <span class="text-zinc-400">Necesitás cerrar mejor.</span>
       </h1>
 
-      <p class="text-xl text-zinc-400 max-w-2xl mb-12">
+      <p class="text-xl text-zinc-400 max-w-2xl mb-12 reveal delay-2">
         Trabajo con closers, dueños de negocio y servicios
         que ya tienen conversaciones, pero no decisiones.
       </p>
 
-      <div class="h-px w-24 bg-zinc-700"></div>
+      <div class="h-px w-24 bg-zinc-700 reveal delay-3"></div>
     </div>
   </section>
 
   <!-- PROBLEMAS -->
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-6">
+  <section class="py-32">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 text-lg">
 
-      <div class="grid md:grid-cols-2 gap-8 text-zinc-300 text-lg">
-        <div class="p-6 border border-zinc-800 rounded-xl">
-          Leads que responden pero no avanzan
-        </div>
-        <div class="p-6 border border-zinc-800 rounded-xl">
-          Objeciones de precio repetidas
-        </div>
-        <div class="p-6 border border-zinc-800 rounded-xl">
-          Seguimientos eternos
-        </div>
-        <div class="p-6 border border-zinc-800 rounded-xl">
-          Cierres que se diluyen
-        </div>
+      <div class="p-8 border border-zinc-800 rounded-xl reveal delay-1">
+        Leads que responden pero no avanzan
+      </div>
+      <div class="p-8 border border-zinc-800 rounded-xl reveal delay-2">
+        Objeciones de precio repetidas
+      </div>
+      <div class="p-8 border border-zinc-800 rounded-xl reveal delay-3">
+        Seguimientos eternos
+      </div>
+      <div class="p-8 border border-zinc-800 rounded-xl reveal delay-4">
+        Cierres que se diluyen
       </div>
 
     </div>
   </section>
 
   <!-- CRITERIO -->
-  <section class="py-24 bg-zinc-900/30">
-    <div class="max-w-4xl mx-auto px-6 text-center">
+  <section class="py-32 bg-zinc-900/30">
+    <div class="max-w-4xl mx-auto px-6 text-center reveal">
 
-      <p class="text-2xl text-zinc-300 leading-relaxed">
+      <p class="text-3xl leading-relaxed text-zinc-300">
         El problema no es el lead.<br>
         Tampoco el precio.<br><br>
         <span class="text-white font-semibold">
@@ -75,38 +101,55 @@
     </div>
   </section>
 
-  <!-- CÓMO TRABAJO -->
-  <section class="py-24">
-    <div class="max-w-4xl mx-auto px-6">
+  <!-- METODO -->
+  <section class="py-32">
+    <div class="max-w-4xl mx-auto px-6 reveal">
 
       <p class="text-zinc-400 text-lg leading-relaxed">
-        No trabajo con scripts genéricos ni promesas vacías.<br><br>
-        Trabajo sobre el proceso, la estructura de la conversación
-        y los puntos donde hoy se están perdiendo decisiones.
+        No trabajo con scripts genéricos.<br>
+        No persigo leads fríos.<br><br>
+        Trabajo sobre el proceso, la estructura
+        y los momentos donde hoy se pierden decisiones.
       </p>
 
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="py-24 border-t border-zinc-800">
-    <div class="max-w-4xl mx-auto px-6">
+  <section class="py-32 border-t border-zinc-800">
+    <div class="max-w-4xl mx-auto px-6 reveal">
 
       <a
         href="https://wa.me/543435136669?text=Hola,%20quiero%20mejorar%20mi%20proceso%20de%20cierre."
         target="_blank"
-        class="block bg-white text-black rounded-2xl p-8 hover:bg-zinc-200 transition"
+        class="block bg-white text-black rounded-3xl p-10 cta-glow"
       >
-        <p class="text-2xl font-semibold mb-2">
+        <p class="text-3xl font-semibold mb-3">
           Agendar una conversación →
         </p>
         <p class="text-zinc-600">
-          No es una llamada de ventas. Es para ver si tiene sentido trabajar juntos.
+          No es una llamada de ventas.  
+          Es para ver si tiene sentido trabajar juntos.
         </p>
       </a>
 
     </div>
   </section>
+
+  <!-- SCRIPT ANIMACIONES -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
