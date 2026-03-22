@@ -2,170 +2,594 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Cerrar mejor ventas</title>
+  <title>Loyal Sphere · Cerrar Mejor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg: #07070a;
+      --surface: #101014;
+      --border: rgba(255,255,255,.07);
+      --muted: #6b6b78;
+      --text: #e8e8ec;
+      --accent: #ffffff;
+      --danger: #ff4d4d;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      margin: 0;
-      background: #050507;
-      color: white;
-      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Fondo grid sutil */
-    .bg-grid {
-      background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .025;
+      pointer-events: none;
+      z-index: 999;
     }
 
-    /* Animaciones */
-    .reveal {
+    /* ─── TYPOGRAPHY ─── */
+    h1, h2, h3 { font-family: 'Syne', sans-serif; letter-spacing: -.02em; }
+
+    /* ─── REVEAL ─── */
+    .r {
       opacity: 0;
-      transform: translateY(60px);
-      transition: all .9s ease;
+      transform: translateY(36px);
+      transition: opacity .7s ease, transform .7s ease;
     }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
+    .r.in { opacity: 1; transform: translateY(0); }
+    .r-d1 { transition-delay: .1s; }
+    .r-d2 { transition-delay: .2s; }
+    .r-d3 { transition-delay: .3s; }
+    .r-d4 { transition-delay: .4s; }
+
+    /* ─── LAYOUT ─── */
+    .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 20px 60px;
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
     }
 
-    /* Glow CTA */
-    .cta {
-      transition: all .3s ease;
-      box-shadow: 0 0 0 rgba(255,255,255,0);
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
     }
-    .cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 50px rgba(255,255,255,.18);
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--danger);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.8); }
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 9vw, 4rem);
+      line-height: 1.08;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    h1 .dim { color: #3a3a45; }
+
+    .hero-sub {
+      font-size: clamp(1rem, 4vw, 1.15rem);
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+
+    /* ─── PROOF BAR ─── */
+    .proof-bar {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    .proof-item { display: flex; flex-direction: column; gap: 2px; }
+    .proof-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .proof-label { font-size: .75rem; color: var(--muted); }
+
+    /* ─── CTA PRIMARY ─── */
+    .cta-primary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: #ffffff;
+      color: #000;
+      border-radius: 14px;
+      padding: 18px 22px;
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      transition: transform .25s ease, box-shadow .25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cta-primary:active { transform: scale(.97); }
+    .cta-primary .arrow {
+      width: 36px; height: 36px;
+      background: #000;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform .25s ease;
+    }
+    .cta-primary:hover .arrow { transform: translateX(3px); }
+    .cta-primary svg { width: 16px; height: 16px; }
+
+    .cta-note {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ─── SECTION ─── */
+    section { padding: 72px 0; }
+
+    /* ─── LABEL ─── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    /* ─── PROBLEM SECTION ─── */
+    .problem-list { display: flex; flex-direction: column; gap: 0; }
+    .problem-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .problem-item:first-child { border-top: 1px solid var(--border); }
+    .p-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(255,77,77,.1);
+      border: 1px solid rgba(255,77,77,.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: .85rem;
+    }
+    .p-body { display: flex; flex-direction: column; gap: 4px; }
+    .p-title { font-weight: 600; font-size: .95rem; color: var(--accent); }
+    .p-desc { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── TRUTH SECTION ─── */
+    #verdad { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .truth-block {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--muted);
+    }
+    .truth-block strong { color: var(--accent); }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .step:first-child { border-top: 1px solid var(--border); }
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: .75rem;
+      font-weight: 800;
+      color: var(--muted);
+      width: 28px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .step-content { display: flex; flex-direction: column; gap: 6px; }
+    .step-title { font-weight: 600; font-size: .95rem; color: var(--accent); }
+    .step-desc { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── OBJECTIONS ─── */
+    .obj-list { display: flex; flex-direction: column; gap: 12px; }
+    .obj-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .obj-q {
+      padding: 16px 18px;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .obj-q .icon {
+      width: 24px; height: 24px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: .8rem;
+      transition: transform .3s ease;
+    }
+    .obj-item.open .obj-q .icon { transform: rotate(45deg); }
+    .obj-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding: 0 18px;
+    }
+    .obj-item.open .obj-a { max-height: 200px; padding: 0 18px 16px; }
+
+    /* ─── FINAL CTA ─── */
+    #final {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .final-head {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 7vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .final-sub {
+      font-size: .95rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .final-sub strong { color: var(--text); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .footer-sub { font-size: .75rem; color: #3a3a45; }
+
+    /* ─── STICKY CTA (mobile) ─── */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 12px 16px 20px;
+      background: linear-gradient(to top, #07070a 70%, transparent);
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .4s ease, transform .4s ease;
+      pointer-events: none;
+    }
+    .sticky-cta.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+
+    @media (min-width: 640px) {
+      .sticky-cta { display: none; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<section class="min-h-screen flex items-center bg-grid">
-  <div class="max-w-6xl mx-auto px-6 py-32">
-    <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-10 reveal">
-      No necesitás más leads.<br>
-      <span class="text-zinc-400">Necesitás cerrar mejor.</span>
-    </h1>
+<!-- ────────────────── HERO ────────────────── -->
+<section id="hero">
 
-    <p class="text-xl text-zinc-400 max-w-2xl mb-16 reveal">
-      Si ya tenés conversaciones pero no decisiones,
-      el problema no es el mercado.
-      <span class="text-white font-medium">Es el proceso.</span>
-    </p>
-
-    <a href="#problemas" class="text-white/70 hover:text-white transition reveal">
-      Ver si esto aplica a tu caso →
-    </a>
+  <div class="eyebrow r">
+    <span class="eyebrow-dot"></span>
+    Consultora de ventas · Loyal Sphere
   </div>
+
+  <h1 class="r r-d1">
+    Tenés leads.<br>
+    <span class="dim">No tenés cierres.</span>
+  </h1>
+
+  <p class="hero-sub r r-d2">
+    El problema no es el mercado, ni el precio, ni el producto.
+    <strong>Es la conversación.</strong><br>
+    Y eso se puede corregir en días, no en meses.
+  </p>
+
+  <div class="proof-bar r r-d3">
+    <div class="proof-item">
+      <span class="proof-num">+300</span>
+      <span class="proof-label">conversaciones analizadas</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">72h</span>
+      <span class="proof-label">primer cambio visible</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-num">100%</span>
+      <span class="proof-label">foco en cierre</span>
+    </div>
+  </div>
+
+  <a
+    href="https://wa.me/543435136669?text=Hola,%20quiero%20mejorar%20mi%20proceso%20de%20cierre."
+    target="_blank"
+    class="cta-primary r r-d4"
+    id="hero-cta"
+  >
+    Quiero cerrar mejor
+    <span class="arrow">
+      <svg fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+  <p class="cta-note r r-d4">Sin compromiso · Gratis · Por WhatsApp</p>
+
 </section>
 
-<!-- PROBLEMAS -->
-<section id="problemas" class="py-32">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-semibold mb-16 reveal">
-      Esto suele pasar cuando el cierre no está controlado
-    </h2>
+<!-- ────────────────── PROBLEMAS ────────────────── -->
+<section id="problemas">
+  <div class="wrap">
+    <p class="section-label r">Lo que está pasando ahora</p>
 
-    <div class="grid md:grid-cols-4 gap-8">
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Leads que se enfrían</h3>
-        <p class="text-zinc-400 text-sm">
-          Interés inicial sin avance real.
-        </p>
+    <div class="problem-list">
+      <div class="problem-item r r-d1">
+        <div class="p-icon">🧊</div>
+        <div class="p-body">
+          <p class="p-title">El lead arrancó bien y desapareció</p>
+          <p class="p-desc">Hubo interés real. Después, silencio. No es la persona, es el momento donde perdiste el hilo.</p>
+        </div>
       </div>
 
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Objeciones recicladas</h3>
-        <p class="text-zinc-400 text-sm">
-          Precio, tiempo, “lo pienso”.
-        </p>
+      <div class="problem-item r r-d2">
+        <div class="p-icon">💬</div>
+        <div class="p-body">
+          <p class="p-title">"Lo pienso y te aviso"</p>
+          <p class="p-desc">La objeción no es el precio. Es que no creó suficiente certeza antes de pedir la decisión.</p>
+        </div>
       </div>
 
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Seguimientos eternos</h3>
-        <p class="text-zinc-400 text-sm">
-          Conversaciones que no cierran.
-        </p>
+      <div class="problem-item r r-d3">
+        <div class="p-icon">🔁</div>
+        <div class="p-body">
+          <p class="p-title">Seguís mandando mensajes que no abren</p>
+          <p class="p-desc">Follow-up sin estructura. Más mensajes = menos credibilidad.</p>
+        </div>
       </div>
 
-      <div class="reveal p-8 rounded-2xl border border-white/10 bg-zinc-900/40">
-        <h3 class="font-semibold mb-2">Cierres diluidos</h3>
-        <p class="text-zinc-400 text-sm">
-          La decisión nunca llega.
-        </p>
+      <div class="problem-item r r-d4">
+        <div class="p-icon">📉</div>
+        <div class="p-body">
+          <p class="p-title">Cerrás por debajo de lo que deberías</p>
+          <p class="p-desc">No porque seas malo en ventas. Porque nadie te enseñó a controlar la conversación.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MENSAJE CENTRAL -->
-<section class="py-32 bg-zinc-900/30">
-  <div class="max-w-4xl mx-auto px-6 text-center reveal">
-    <p class="text-3xl leading-relaxed text-zinc-300">
-      El problema no es el lead.<br>
-      Tampoco el precio.<br><br>
-      <span class="text-white font-semibold">
-        Es cómo se está llevando la conversación.
-      </span>
-    </p>
+<!-- ────────────────── VERDAD ────────────────── -->
+<section id="verdad">
+  <div class="wrap">
+    <div class="truth-block r">
+      No necesitás más audiencia.<br>
+      No necesitás bajar el precio.<br>
+      <strong>Necesitás saber qué decir,<br>cuándo decirlo,<br>y cómo llevar a una decisión.</strong>
+    </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="py-32">
-  <div class="max-w-4xl mx-auto px-6 reveal">
+<!-- ────────────────── CÓMO FUNCIONA ────────────────── -->
+<section id="como">
+  <div class="wrap">
+    <p class="section-label r">Qué pasa después de hablar</p>
+
+    <div class="steps">
+      <div class="step r r-d1">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <p class="step-title">Diagnóstico de conversación</p>
+          <p class="step-desc">Revisamos cómo estás cerrando hoy: dónde pierde momentum, qué objeciones se repiten y por qué.</p>
+        </div>
+      </div>
+
+      <div class="step r r-d2">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <p class="step-title">Identificamos el quiebre</p>
+          <p class="step-desc">El 80% del problema suele estar en el mismo punto. Lo encontramos, sin rodeos.</p>
+        </div>
+      </div>
+
+      <div class="step r r-d3">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <p class="step-title">Ajuste aplicable de inmediato</p>
+          <p class="step-desc">No un curso. No un manual. Una corrección específica que podés usar en la próxima conversación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── OBJECIONES ────────────────── -->
+<section id="objeciones">
+  <div class="wrap">
+    <p class="section-label r">Preguntas frecuentes</p>
+
+    <div class="obj-list">
+
+      <div class="obj-item r r-d1">
+        <div class="obj-q">
+          <span>¿Es una llamada de ventas disfrazada?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="obj-a">No. Si al hablar vemos que no tiene sentido trabajar juntos, te lo decimos directo. No tenemos interés en cerrar a alguien que no va a obtener resultados.</div>
+      </div>
+
+      <div class="obj-item r r-d2">
+        <div class="obj-q">
+          <span>¿Funciona si vendo servicios de alto precio?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="obj-a">Especialmente para eso. Cuanto mayor el ticket, más impacto tiene una conversación mal manejada. Un ajuste en el proceso puede significar miles de pesos en ventas que hoy estás dejando ir.</div>
+      </div>
+
+      <div class="obj-item r r-d3">
+        <div class="obj-q">
+          <span>¿Cuánto tiempo lleva ver resultados?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="obj-a">Los cambios de proceso se notan en la primera o segunda conversación después de aplicarlos. No prometemos magia, pero sí cambios concretos desde el primer día.</div>
+      </div>
+
+      <div class="obj-item r r-d4">
+        <div class="obj-q">
+          <span>No tengo tiempo para más cosas</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="obj-a">La conversación inicial dura 20 minutos. Si no encontramos nada accionable en ese tiempo, te lo decimos y terminamos ahí. Sin compromisos.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── CTA FINAL ────────────────── -->
+<section id="final">
+  <div class="wrap">
+    <h2 class="final-head r">
+      Cada lead que se enfría<br>es dinero que ya perdiste.
+    </h2>
+    <p class="final-sub r r-d1">
+      No mañana. <strong>La próxima conversación</strong> puede ser diferente.<br>
+      Pero solo si cambiás algo antes de tenerla.
+    </p>
+
     <a
       href="https://wa.me/543435136669?text=Hola,%20quiero%20mejorar%20mi%20proceso%20de%20cierre."
       target="_blank"
-      class="block bg-white text-black rounded-3xl p-10 cta"
+      class="cta-primary r r-d2"
     >
-      <p class="text-3xl font-semibold mb-3">
-        Agendar una conversación →
-      </p>
-      <p class="text-zinc-600">
-        No es una llamada de ventas.<br>
-        Es para ver si tiene sentido trabajar juntos.
-      </p>
+      Hablar ahora por WhatsApp
+      <span class="arrow">
+        <svg fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
     </a>
+    <p class="cta-note r r-d2">Gratis · Sin compromiso · 20 minutos</p>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="py-32 border-t border-white/10 text-center reveal">
-  <img src="Logo blanco LS.png" alt="Loyal Sphere" class="mx-auto mb-8 max-w-[200px] opacity-90">
-  <p class="text-zinc-500 text-sm">
-    Loyal Sphere · Consultora de Ventas
-  </p>
+<!-- ────────────────── FOOTER ────────────────── -->
+<footer>
+  <p class="footer-logo">Loyal Sphere</p>
+  <p class="footer-sub">Consultora de Ventas</p>
 </footer>
 
-<!-- SCRIPT ANIMACIONES -->
-<script>
-  const items = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, { threshold: 0.15 });
+<!-- ────────────────── STICKY CTA (mobile) ────────────────── -->
+<div class="sticky-cta" id="stickyCta">
+  <a
+    href="https://wa.me/543435136669?text=Hola,%20quiero%20mejorar%20mi%20proceso%20de%20cierre."
+    target="_blank"
+    class="cta-primary"
+  >
+    Hablar por WhatsApp
+    <span class="arrow">
+      <svg fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+</div>
 
-  items.forEach(el => observer.observe(el));
+<!-- ────────────────── JS ────────────────── -->
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.r');
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => revealObs.observe(el));
+
+  // Accordion objeciones
+  document.querySelectorAll('.obj-item').forEach(item => {
+    item.querySelector('.obj-q').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.obj-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Sticky CTA: aparece después de pasar el hero CTA
+  const heroCta = document.getElementById('hero-cta');
+  const stickyCta = document.getElementById('stickyCta');
+  const stickyObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      stickyCta.classList.toggle('show', !e.isIntersecting);
+    });
+  }, { threshold: 0 });
+  if (heroCta) stickyObs.observe(heroCta);
 </script>
 
 </body>
